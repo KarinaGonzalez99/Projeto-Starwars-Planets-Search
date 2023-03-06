@@ -1,6 +1,4 @@
 import React, { useContext } from 'react';
-import { FormControl, InputLabel, MenuItem,
-  Select, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 import StarWarsContext from '../context/StarWarsContext';
 
 function Ordem() {
@@ -15,50 +13,59 @@ function Ordem() {
 
   return (
     <div>
-      <FormControl variant="outlined" margin="dense">
-        <InputLabel id="select-column-label">Coluna</InputLabel>
-        <Select
-          data-testid="column-sort"
-          labelId="select-column-label"
-          id="select-column"
-          value={ ordem }
-          onChange={ ({ target }) => {
-            setOrdem(target.value);
-          } }
-          label="Coluna"
-        >
-          {options.map((option) => (
-            <MenuItem
-              key={ option.value }
-              value={ option.value }
-            >
-              {option.label}
+      <label htmlFor="select-column">Coluna:</label>
+      <select
+        id="select-column"
+        data-testid="column-sort"
+        value={ ordem }
+        onChange={ ({ target }) => {
+          setOrdem(target.value);
+        } }
+      >
+        {options.map((option) => (
+          <option
+            key={ option.value }
+            value={ option.value }
+          >
+            {option.label}
+          </option>
+        ))}
+      </select>
 
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <div>
+        <label htmlFor="sortOrder">Ordenação:</label>
+        <div id="sortOrder">
+          <label htmlFor="ASC">
+            <input
+              id="ASC"
+              type="radio"
+              name="sortOrder"
+              value="ASC"
+              data-testid="column-sort-input-asc"
+              checked={ random === 'ASC' }
+              onChange={ ({ target }) => {
+                setRandom(target.value);
+              } }
+            />
+            Ascendente
+          </label>
 
-      <FormControl component="fieldset" margin="dense">
-        <RadioGroup
-          row
-          aria-label="Ordenação"
-          name="sortOrder"
-          value={ random }
-          onChange={ ({ target }) => { setRandom(target.value); } }
-        >
-          <FormControlLabel
-            value="ASC"
-            control={ <Radio data-testid="column-sort-input-asc" /> }
-            label="Ascendente"
-          />
-          <FormControlLabel
-            value="DESC"
-            control={ <Radio data-testid="column-sort-input-desc" /> }
-            label="Descendente"
-          />
-        </RadioGroup>
-      </FormControl>
+          <label htmlFor="DESC">
+            <input
+              id="DESC"
+              type="radio"
+              name="sortOrder"
+              value="DESC"
+              data-testid="column-sort-input-desc"
+              checked={ random === 'DESC' }
+              onChange={ ({ target }) => {
+                setRandom(target.value);
+              } }
+            />
+            Descendente
+          </label>
+        </div>
+      </div>
     </div>
   );
 }
